@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMS Canteen | Admin Preview - Image Upload Adjustment</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" 
+          crossorigin="anonymous" />
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="frontend/assets/css/style.css">
+    <link rel="stylesheet" href="frontend/assets/css/utilities.css">
+    <link rel="stylesheet" href="frontend/assets/css/mobile.css">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+            font-family: 'Helvetica', sans-serif;
+        }
+        
+        .preview-header {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 20px auto 40px;
+            max-width: 600px;
+        }
+        
+        .preview-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .preview-header h2 {
+            color: #666;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .improvement-badge {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .demo-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Preview Header -->
+    <div class="preview-header">
+        <h1>🍽️ AIMS Canteen Admin Panel</h1>
+        <h2>Image Upload Position - Improved Layout</h2>
+        <p>The image upload section has been moved to the left and adjusted to blend better with the background design.</p>
+        <span class="improvement-badge">✨ Layout Improved</span>
+    </div>
+
+    <!-- Demo Form Container -->
+    <div class="demo-container">
+        <section class="add-product add-container" style="display: block;">
+            <div class="container-min">
+                <div class="title md text-center">Add Product to Menu</div>
+                <hr />
+                
+                <!-- Enhanced Product Form -->
+                <div class="enhanced-product-form">
+                    <div class="form-grid">
+                        <!-- Left Column - Form Fields -->
+                        <div class="form-fields">
+                            <div class="form-group">
+                                <label for="add-title">Product Name *</label>
+                                <input id="add-title" type="text" placeholder="Enter product name" value="Masala Dosa" />
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="add-description">Product Description</label>
+                                <textarea id="add-description" placeholder="Describe your product (optional)" rows="3">Crispy, golden dosa filled with spiced potato curry</textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="add-category">Category *</label>
+                                    <div class="category-input-group">
+                                        <select name="Categories" id="add-category">
+                                            <option value="">Select category</option>
+                                            <option value="South Indian" selected>South Indian</option>
+                                            <option value="North Indian">North Indian</option>
+                                            <option value="Snacks">Snacks</option>
+                                            <option value="Beverages">Beverages</option>
+                                        </select>
+                                        <button type="button" class="btn-secondary">
+                                            <i class="fas fa-plus"></i> New
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="add-price">Price (₹) *</label>
+                                    <input id="add-price" type="number" placeholder="0.00" value="45" />
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="add-calories">Calories</label>
+                                    <input id="add-calories" type="text" placeholder="e.g., 220-280 Kcal" value="250-300 Kcal" />
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="add-availability">Availability</label>
+                                    <select id="add-availability">
+                                        <option value="1" selected>Available</option>
+                                        <option value="0">Out of Stock</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Column - Image Upload (Moved Left) -->
+                        <div class="image-upload-section">
+                            <div class="image-preview-container">
+                                <div class="image-preview" id="image-preview">
+                                    <img id="preview-img" src="frontend/assets/images/menu_img1.jpg" alt="Product preview" />
+                                    <div class="image-overlay">
+                                        <i class="fas fa-camera"></i>
+                                        <p>Click to upload image</p>
+                                    </div>
+                                </div>
+                                <input type="file" id="image-upload" accept="image/*" style="display: none;" />
+                                <div class="image-info">
+                                    <p class="image-requirements">
+                                        <i class="fas fa-info-circle"></i>
+                                        Max size: 5MB<br>
+                                        Formats: JPG, PNG, GIF
+                                    </p>
+                                    <button type="button" class="btn-outline" id="remove-image-btn" style="display: none;">
+                                        <i class="fas fa-trash"></i> Remove Image
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel">Cancel</button>
+                        <button type="button" class="btn-primary">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Improvements Summary -->
+    <div class="preview-header" style="margin-top: 40px;">
+        <h3>🎯 Improvements Made:</h3>
+        <div style="text-align: left; max-width: 500px; margin: 20px auto;">
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee;"><i class="fas fa-arrow-left" style="color: #28a745; margin-right: 10px;"></i> <strong>Moved image upload to the left</strong> - Better visual balance</li>
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee;"><i class="fas fa-compress-arrows-alt" style="color: #17a2b8; margin-right: 10px;"></i> <strong>Reduced column width</strong> - From 300px to 280px</li>
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee;"><i class="fas fa-align-left" style="color: #ffc107; margin-right: 10px;"></i> <strong>Left-aligned content</strong> - Better integration with form</li>
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee;"><i class="fas fa-palette" style="color: #6f42c1; margin-right: 10px;"></i> <strong>Added background gradient</strong> - Subtle visual enhancement</li>
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee;"><i class="fas fa-mobile-alt" style="color: #dc3545; margin-right: 10px;"></i> <strong>Improved responsive design</strong> - Perfect on all devices</li>
+                <li style="padding: 8px 0;"><i class="fas fa-layer-group" style="color: #fd7e14; margin-right: 10px;"></i> <strong>Enhanced z-index layering</strong> - Better element stacking</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive functionality for demonstration
+        document.getElementById('image-preview')?.addEventListener('click', () => {
+            document.getElementById('image-upload')?.click();
+        });
+
+        document.getElementById('image-upload')?.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('preview-img').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

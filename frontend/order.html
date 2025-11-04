@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AIMS Canteen | Sign In/Up</title>
+
+    <!-- Page Icon -->
+    <link rel="Micosoft icon" href="assets\images\AIMS LOGO.png" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+      integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+      crossorigin="anonymous"
+    />
+
+    
+   
+    <!-- Sweet Alert Pop Modal -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Chart.js for Dashboard Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Order Page Styles -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/utilities.css" />
+    <link rel="stylesheet" href="assets/css/mobile.css" />
+    <link rel="stylesheet" href="assets/css/order.css" />
+  </head>
+  <body>
+    <!-- NavBar -->
+    <header class="navbar">
+      <div class="container flex text-center jc-ai-center">
+        <!-- Left Navigation -->
+        <div class="site-title flex align-item-center">
+          <div>
+            <a href="index.html"
+              ><h1>
+                <span class="clr-red">AIMS</span>
+                <span class="clr-green">Canteen Admin</span>
+              </h1></a
+            >
+          </div>
+          <!-- Toggle Bars -->
+          <div class="toggle-bars mybar">
+            <div class="bars bar-1"></div>
+            <div class="bars bar-2"></div>
+            <div class="bars bar-3"></div>
+          </div>
+        </div>
+        <!-- Right Navigation -->
+        <nav class="site-nav flex left-nav align-item-center">
+          <ul class="flex">
+            
+            <li><a href="admin-side.html">Product Management</a></li>
+            
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+   
+
+    <!-- Admin Dashboard Section -->
+    <section class="admin-dashboard">
+      <div class="container-min">
+        <div class="dashboard-header">
+          <h2 class="dashboard-title">Canteen Order Dashboard</h2>
+          <button class="refresh-btn" id="refreshStats" title="Refresh Statistics">
+            <i class="fas fa-sync-alt"></i> Refresh
+          </button>
+        </div>
+        
+        <!-- Date Filter Section -->
+        <div class="date-filter-section">
+          <div class="filter-container">
+            <div class="filter-header">
+              <h3 class="filter-title">
+                <i class="fas fa-calendar-alt"></i> Date Range Filter
+              </h3>
+              <span class="filter-status" id="filterStatus">Showing all-time data</span>
+            </div>
+            
+            <div class="filter-controls">
+              <div class="date-inputs">
+                <div class="date-group">
+                  <label for="fromDate">From Date</label>
+                  <input type="date" id="fromDate" class="date-input" />
+                </div>
+                
+                <div class="date-group">
+                  <label for="toDate">To Date</label>
+                  <input type="date" id="toDate" class="date-input" />
+                </div>
+              </div>
+              
+              <div class="filter-actions">
+                <button class="btn-filter" id="applyFilter">
+                  <i class="fas fa-filter"></i> Apply Filter
+                </button>
+                <button class="btn-reset" id="resetFilter">
+                  <i class="fas fa-undo"></i> Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dashboard-grid">
+          <!-- Total Orders Card -->
+          <div class="dashboard-card card-blue">
+            <div class="card-content">
+              <div class="card-icon">
+                <i class="fas fa-receipt"></i>
+              </div>
+              <div class="card-info">
+                <h3 class="card-number" id="totalOrders">0</h3>
+                <p class="card-label">Total Orders</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Orders Delivered Card -->
+          <div class="dashboard-card card-green">
+            <div class="card-content">
+              <div class="card-icon">
+                <i class="fas fa-truck"></i>
+              </div>
+              <div class="card-info">
+                <h3 class="card-number" id="deliveredOrders">0</h3>
+                <p class="card-label">Orders Delivered</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Orders Preparing Card -->
+          <div class="dashboard-card card-orange">
+            <div class="card-content">
+              <div class="card-icon">
+                <i class="fas fa-utensils"></i>
+              </div>
+              <div class="card-info">
+                <h3 class="card-number" id="preparingOrders">0</h3>
+                <p class="card-label">Orders Preparing</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Orders Ready Card -->
+          <div class="dashboard-card card-yellow">
+            <div class="card-content">
+              <div class="card-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="card-info">
+                <h3 class="card-number" id="readyOrders">0</h3>
+                <p class="card-label">Orders Ready</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Income Card -->
+          <div class="dashboard-card card-purple">
+            <div class="card-content">
+              <div class="card-icon">
+                <i class="fas fa-rupee-sign"></i>
+              </div>
+              <div class="card-info">
+                <h3 class="card-number" id="totalIncome">₹0</h3>
+                <p class="card-label">Total Income</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="chart-section">
+          <h3 class="chart-title">Order Status Distribution</h3>
+          <div class="chart-container">
+            <canvas id="orderChart" width="400" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="add-product remove">
+      <div class="container-min grid">
+        
+        <hr />
+        <!-- Add Menu Item -->
+        <article class="menu-item text-center grid grid-1" id="custom">
+          
+         
+        </article>
+      </div>
+    </section>  
+
+    <script src="assets/js/admin.js"></script>
+    <script src="assets/js/admin-orders.js"></script>
+    
+    <!-- Dashboard JavaScript -->
+    <script>
+      // Dashboard functionality
+      class AdminDashboard {
+        constructor() {
+          this.chart = null;
+          this.currentDateRange = null;
+          this.init();
+        }
+
+        async init() {
+          await this.loadDashboardStats();
+          this.setupEventListeners();
+          this.setDefaultDates();
+        }
+
+        setDefaultDates() {
+          // Set default dates to last 7 days
+          const today = new Date();
+          const lastWeek = new Date();
+          lastWeek.setDate(today.getDate() - 7);
+          
+          // Don't set default values, let user choose
+          // document.getElementById('toDate').value = today.toISOString().split('T')[0];
+          // document.getElementById('fromDate').value = lastWeek.toISOString().split('T')[0];
+        }
+
+        setupEventListeners() {
+          // Refresh button
+          const refreshBtn = document.getElementById('refreshStats');
+          if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => {
+              this.refreshStats();
+            });
+          }
+
+          // Date filter buttons
+          const applyFilterBtn = document.getElementById('applyFilter');
+          const resetFilterBtn = document.getElementById('resetFilter');
+          
+          if (applyFilterBtn) {
+            applyFilterBtn.addEventListener('click', () => {
+              this.applyDateFilter();
+            });
+          }
+          
+          if (resetFilterBtn) {
+            resetFilterBtn.addEventListener('click', () => {
+              this.resetDateFilter();
+            });
+          }
+
+          // Date input change handlers
+          const fromDate = document.getElementById('fromDate');
+          const toDate = document.getElementById('toDate');
+          
+          if (fromDate) {
+            fromDate.addEventListener('change', () => {
+              this.validateDateRange();
+            });
+          }
+          
+          if (toDate) {
+            toDate.addEventListener('change', () => {
+              this.validateDateRange();
+            });
+          }
+
+          // Auto-refresh every 30 seconds (only if no date filter is active)
+          setInterval(() => {
+            if (!this.currentDateRange) {
+              this.loadDashboardStats(false);
+            }
+          }, 30000);
+        }
+
+        validateDateRange() {
+          const fromDate = document.getElementById('fromDate').value;
+          const toDate = document.getElementById('toDate').value;
+          const applyBtn = document.getElementById('applyFilter');
+          
+          // Enable apply button if at least one date is selected
+          if (applyBtn) {
+            applyBtn.disabled = !fromDate && !toDate;
+          }
+          
+          // Validate date range
+          if (fromDate && toDate && fromDate > toDate) {
+            document.getElementById('toDate').setCustomValidity('End date must be after start date');
+          } else {
+            document.getElementById('toDate').setCustomValidity('');
+          }
+        }
+
+        async applyDateFilter() {
+          const fromDate = document.getElementById('fromDate').value;
+          const toDate = document.getElementById('toDate').value;
+          
+          if (!fromDate && !toDate) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Please select at least one date',
+              timer: 2000,
+              showConfirmButton: false
+            });
+            return;
+          }
+          
+          this.currentDateRange = { from: fromDate, to: toDate };
+          
+          // Update filter status
+          this.updateFilterStatus();
+          
+          // Load filtered data
+          await this.loadDashboardStats(true);
+        }
+
+        async resetDateFilter() {
+          // Clear date inputs
+          document.getElementById('fromDate').value = '';
+          document.getElementById('toDate').value = '';
+          
+          // Clear date range
+          this.currentDateRange = null;
+          
+          // Update filter status
+          this.updateFilterStatus();
+          
+          // Load all data
+          await this.loadDashboardStats(true);
+        }
+
+        updateFilterStatus() {
+          const statusElement = document.getElementById('filterStatus');
+          if (!statusElement) return;
+          
+          if (this.currentDateRange) {
+            const { from, to } = this.currentDateRange;
+            let statusText = 'Filtered: ';
+            
+            if (from && to) {
+              statusText += `${from} to ${to}`;
+            } else if (from) {
+              statusText += `From ${from}`;
+            } else if (to) {
+              statusText += `Until ${to}`;
+            }
+            
+            statusElement.textContent = statusText;
+            statusElement.classList.add('filtered');
+          } else {
+            statusElement.textContent = 'Showing all-time data';
+            statusElement.classList.remove('filtered');
+          }
+        }
+
+        async refreshStats() {
+          const refreshBtn = document.getElementById('refreshStats');
+          const icon = refreshBtn.querySelector('i');
+          
+          // Add spinning animation
+          icon.style.animation = 'spin 1s linear infinite';
+          refreshBtn.disabled = true;
+
+          await this.loadDashboardStats();
+
+          // Remove spinning animation
+          setTimeout(() => {
+            icon.style.animation = '';
+            refreshBtn.disabled = false;
+          }, 500);
+        }
+
+        async loadDashboardStats(showLoading = true) {
+          try {
+            if (showLoading) {
+              this.showLoading();
+            }
+
+            // Build URL with date parameters
+            let url = '/api/orders/stats';
+            const params = new URLSearchParams();
+            
+            if (this.currentDateRange) {
+              if (this.currentDateRange.from) {
+                params.append('from', this.currentDateRange.from);
+              }
+              if (this.currentDateRange.to) {
+                params.append('to', this.currentDateRange.to);
+              }
+            }
+            
+            if (params.toString()) {
+              url += '?' + params.toString();
+            }
+
+            const response = await fetch(url, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+              }
+            });
+
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            this.updateDashboardCards(data);
+            this.updateChart(data);
+            
+            // Show success message if filtered
+            if (showLoading && this.currentDateRange) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Filter Applied!',
+                text: data.message || 'Dashboard updated with filtered data',
+                timer: 2000,
+                showConfirmButton: false
+              });
+            }
+
+          } catch (error) {
+            console.error('Error fetching dashboard stats:', error);
+            this.showError('Failed to load dashboard statistics');
+          }
+        }
+
+        showLoading() {
+          const cards = document.querySelectorAll('.card-number');
+          cards.forEach(card => {
+            card.textContent = '...';
+          });
+        }
+
+        updateDashboardCards(data) {
+          // Animate counter updates
+          this.animateCounter('totalOrders', data.totalOrders);
+          this.animateCounter('deliveredOrders', data.delivered);
+          this.animateCounter('preparingOrders', data.preparing);
+          this.animateCounter('readyOrders', data.ready);
+          this.animateCounter('totalIncome', data.totalIncome, true);
+        }
+
+        animateCounter(elementId, targetValue, isCurrency = false) {
+          const element = document.getElementById(elementId);
+          if (!element) return;
+
+          const startValue = 0;
+          const duration = 1000; // 1 second
+          const startTime = performance.now();
+
+          const updateCounter = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for smooth animation
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            const currentValue = Math.floor(startValue + (targetValue - startValue) * easeOutQuart);
+            
+            if (isCurrency) {
+              element.textContent = `₹${currentValue.toLocaleString()}`;
+            } else {
+              element.textContent = currentValue.toLocaleString();
+            }
+
+            if (progress < 1) {
+              requestAnimationFrame(updateCounter);
+            } else {
+              // Ensure final value is exact
+              if (isCurrency) {
+                element.textContent = `₹${targetValue.toLocaleString()}`;
+              } else {
+                element.textContent = targetValue.toLocaleString();
+              }
+              element.classList.add('animate');
+              setTimeout(() => element.classList.remove('animate'), 600);
+            }
+          };
+
+          requestAnimationFrame(updateCounter);
+        }
+
+        updateChart(data) {
+          const ctx = document.getElementById('orderChart');
+          if (!ctx) return;
+
+          // Destroy existing chart if it exists
+          if (this.chart) {
+            this.chart.destroy();
+          }
+
+          const chartData = {
+            labels: ['Delivered', 'Preparing', 'Ready'],
+            datasets: [{
+              label: 'Orders',
+              data: [data.delivered, data.preparing, data.ready],
+              backgroundColor: [
+                '#28a745',
+                '#fd7e14', 
+                '#ffc107'
+              ],
+              borderColor: [
+                '#1e7e34',
+                '#e8590c',
+                '#e0a800'
+              ],
+              borderWidth: 2,
+              hoverOffset: 4
+            }]
+          };
+
+          const config = {
+            type: 'doughnut',
+            data: chartData,
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                  labels: {
+                    padding: 20,
+                    usePointStyle: true,
+                    font: {
+                      size: 12,
+                      weight: 'bold'
+                    }
+                  }
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function(context) {
+                      const label = context.label || '';
+                      const value = context.parsed;
+                      const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                      const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                      return `${label}: ${value} (${percentage}%)`;
+                    }
+                  }
+                }
+              },
+              animation: {
+                animateRotate: true,
+                duration: 1000
+              }
+            }
+          };
+
+          this.chart = new Chart(ctx, config);
+        }
+
+        showError(message) {
+          // You can use SweetAlert2 for better error display
+          if (typeof Swal !== 'undefined') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Dashboard Error',
+              text: message,
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000
+            });
+          } else {
+            alert(message);
+          }
+        }
+      }
+
+      // Initialize dashboard when DOM is loaded
+      document.addEventListener('DOMContentLoaded', () => {
+        new AdminDashboard();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <!-- Gold gradient -->
+    <linearGradient id="gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd36b"/>
+      <stop offset="50%" stop-color="#e2b555"/>
+      <stop offset="100%" stop-color="#c79a3e"/>
+    </linearGradient>
+
+    <!-- Soft shadow for main title -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+      <feOffset in="blur" dx="0" dy="2" result="offsetBlur"/>
+      <feMerge>
+        <feMergeNode in="offsetBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Elegant border color -->
+    <style>
+      .bg { fill:#000000; }
+      .border { fill:none; stroke:#6b5746; stroke-width:6; }
+      .rule { fill:none; stroke:#6b5746; stroke-width:6; stroke-linecap:round; }
+      .title { font-family: 'Georgia', 'Times New Roman', serif; font-weight:700; letter-spacing:6px; filter:url(#softGlow); }
+      .script { font-family: 'Brush Script MT', 'Lucida Handwriting', cursive; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect class="bg" x="0" y="0" width="1200" height="800" rx="24"/>
+
+  <!-- Framed box -->
+  <rect class="border" x="160" y="440" width="880" height="140" rx="2"/>
+  <!-- Short rules extending left and right (like in the PNG) -->
+  <line class="rule" x1="200" y1="580" x2="360" y2="580"/>
+  <line class="rule" x1="840" y1="580" x2="1000" y2="580"/>
+
+  <!-- Main Heading -->
+  <text x="600" y="520" class="title" font-size="72" fill="url(#gold)" text-anchor="middle">
+    AIMS &amp; CANTEEN
+  </text>
+
+  <!-- Subheading (script) -->
+  <text x="600" y="610" class="script" font-size="78" fill="url(#gold)" text-anchor="middle">
+    Cuisines
+  </text>
+</svg>

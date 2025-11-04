@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Category Management</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-secondary { background: #6c757d; color: white; }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Category Management Test</h1>
+    
+    <div class="test-section">
+        <h3>1. Admin Login</h3>
+        <button class="btn-primary" onclick="loginAsAdmin()">Login as Admin</button>
+        <button class="btn-secondary" onclick="checkToken()">Check Current Token</button>
+    </div>
+
+    <div class="test-section">
+        <h3>2. Test Category Operations</h3>
+        <button class="btn-primary" onclick="loadCategories()">Load Categories</button>
+        <button class="btn-primary" onclick="addTestCategory()">Add Test Category</button>
+        <button class="btn-danger" onclick="deleteTestCategory()">Delete Test Category</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        function log(message) {
+            const result = document.getElementById('result');
+            result.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
+        }
+
+        function getToken() { return localStorage.getItem('token'); }
+
+        async function api(path, opts = {}) {
+            opts.headers = opts.headers || {};
+            const token = getToken();
+            if (token) opts.headers['Authorization'] = 'Bearer ' + token;
+            
+            if (!(opts.body instanceof FormData) && !opts.headers['Content-Type']) {
+                opts.headers['Content-Type'] = 'application/json';
+            }
+            
+            const res = await fetch(API_BASE + path, opts);
+            if (!res.ok) {
+                const error = await res.json().catch(() => ({ error: 'Server error' }));
+                throw error;
+            }
+            return res.json();
+        }
+
+        async function loginAsAdmin() {
+            try {
+                log('Attempting admin login...');
+                const response = await api('/auth/login', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        email: 'nishanthragod1@gmail.com',
+                        password: 'Nishanth@123'
+                    })
+                });
+                
+                localStorage.setItem('token', response.token);
+                log('✅ Admin login successful');
+                log('Token: ' + response.token.substring(0, 20) + '...');
+            } catch (error) {
+                log('❌ Login failed: ' + (error.error || error.message));
+            }
+        }
+
+        async function checkToken() {
+            try {
+                const token = getToken();
+                if (!token) {
+                    log('❌ No token found');
+                    return;
+                }
+                
+                const response = await api('/auth/verify', { method: 'GET' });
+                log('✅ Token valid - User: ' + JSON.stringify(response.user));
+            } catch (error) {
+                log('❌ Token invalid: ' + (error.error || error.message));
+            }
+        }
+
+        async function loadCategories() {
+            try {
+                log('Loading categories...');
+                const categories = await api('/categories', { method: 'GET' });
+                log('✅ Categories loaded: ' + JSON.stringify(categories, null, 2));
+            } catch (error) {
+                log('❌ Failed to load categories: ' + (error.error || error.message));
+            }
+        }
+
+        async function addTestCategory() {
+            try {
+                const categoryName = 'Test Category ' + Date.now();
+                log('Adding test category: ' + categoryName);
+                
+                const response = await api('/categories', {
+                    method: 'POST',
+                    body: JSON.stringify({ category_name: categoryName })
+                });
+                
+                log('✅ Category added: ' + JSON.stringify(response));
+                window.testCategoryId = response.category_id;
+                window.testCategoryName = categoryName;
+            } catch (error) {
+                log('❌ Failed to add category: ' + (error.error || error.message));
+            }
+        }
+
+        async function deleteTestCategory() {
+            if (!window.testCategoryId) {
+                log('❌ No test category to delete. Add one first.');
+                return;
+            }
+
+            try {
+                log('Deleting test category ID: ' + window.testCategoryId);
+                
+                const response = await api(`/categories/${window.testCategoryId}`, {
+                    method: 'DELETE'
+                });
+                
+                log('✅ Category deleted: ' + JSON.stringify(response));
+                window.testCategoryId = null;
+                window.testCategoryName = null;
+            } catch (error) {
+                log('❌ Failed to delete category: ' + (error.error || error.message));
+            }
+        }
+
+        // Auto-check token on load
+        document.addEventListener('DOMContentLoaded', () => {
+            checkToken();
+        });
+    </script>
+</body>
+</html>

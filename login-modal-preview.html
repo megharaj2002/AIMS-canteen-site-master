@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMS Canteen | Login Modal Preview</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" 
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" 
+          crossorigin="anonymous" />
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="frontend/assets/css/style.css">
+    <link rel="stylesheet" href="frontend/assets/css/utilities.css">
+    <link rel="stylesheet" href="frontend/assets/css/mobile.css">
+    <link rel="stylesheet" href="frontend/assets/css/animations.css">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Helvetica', sans-serif;
+        }
+        
+        .preview-container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin: 20px;
+            max-width: 500px;
+        }
+        
+        .preview-container h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .preview-container h2 {
+            color: #666;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+        
+        .demo-btn {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+        
+        .demo-btn.signup {
+            background: linear-gradient(45deg, #dc3545, #e85a66);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+        
+        .demo-btn.signup:hover {
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+        
+        .features-list {
+            text-align: left;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .features-list h3 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        
+        .features-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .features-list li {
+            padding: 5px 0;
+            color: #333;
+        }
+        
+        .features-list li i {
+            color: #28a745;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Preview Container -->
+    <div class="preview-container">
+        <h1>🍽️ AIMS Canteen</h1>
+        <h2>Improved Login Modal Preview</h2>
+        <p>Click the buttons below to test the improved login and signup modals with better padding and responsive design.</p>
+        
+        <button class="demo-btn" id="sign-modal">
+            <i class="fas fa-sign-in-alt"></i> Open Login Modal
+        </button>
+        
+        <button class="demo-btn signup" id="signup-modal">
+            <i class="fas fa-user-plus"></i> Open Signup Modal
+        </button>
+        
+        <div class="features-list">
+            <h3>✨ Improvements Made:</h3>
+            <ul>
+                <li><i class="fas fa-check"></i> <strong>Better Padding:</strong> Proper spacing on all devices</li>
+                <li><i class="fas fa-check"></i> <strong>Responsive Design:</strong> Works great on mobile, tablet, and desktop</li>
+                <li><i class="fas fa-check"></i> <strong>Centered Layout:</strong> Perfect centering using flexbox</li>
+                <li><i class="fas fa-check"></i> <strong>Smooth Animations:</strong> Fade-in and scale effects</li>
+                <li><i class="fas fa-check"></i> <strong>Enhanced Focus States:</strong> Better accessibility</li>
+                <li><i class="fas fa-check"></i> <strong>Improved Button Design:</strong> Modern styling with hover effects</li>
+                <li><i class="fas fa-check"></i> <strong>Mobile Optimized:</strong> Smaller padding and full-width on small screens</li>
+                <li><i class="fas fa-check"></i> <strong>Rounded Corners:</strong> Modern border-radius for better aesthetics</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal SignUp -->
+    <section class="signup-modal"><!-- Will be populated by JS --></section>
+
+    <!-- Modal LogIn -->
+    <section class="sign-modal"><!-- Will be populated by JS --></section>
+
+    <!-- JavaScript for Modal functionality -->
+    <script src="frontend/assets/js/features.js"></script>
+    
+    <script>
+        // Add smooth show/hide functionality
+        const signInModalbtn = document.querySelectorAll('#sign-modal');
+        const signModal = document.querySelector('.sign-modal');
+        const signUpModalbtn = document.querySelectorAll('#signup-modal');
+        const signUpModal = document.querySelector('.signup-modal');
+
+        // Enhanced modal show/hide with smooth animations
+        signInModalbtn.forEach(element => {
+            element.addEventListener('click', () => {
+                signModal.classList.toggle('show'); 
+            });
+        });
+
+        signUpModalbtn.forEach(element => {
+            element.addEventListener('click', () => {
+                signUpModal.classList.toggle('show');
+            });
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == signModal || event.target == signUpModal) {
+                signModal.classList.remove('show');
+                signUpModal.classList.remove('show');
+            }
+        }
+        
+        // Add escape key functionality
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                signModal.classList.remove('show');
+                signUpModal.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

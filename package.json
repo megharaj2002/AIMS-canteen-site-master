@@ -1,0 +1,17 @@
+{
+  "name": "aims-canteen-site",
+  "version": "1.0.0",
+  "description": "AIMS Canteen Site - Frontend and Backend",
+  "scripts": {
+    "dev": "cd backend && npm run dev",
+    "start": "cd backend && npm start"
+  },
+  "dependencies": {
+    "@vercel/node": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
+
+

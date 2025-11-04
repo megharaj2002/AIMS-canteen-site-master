@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Timestamp Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .test-section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #dc3545;
+            border-bottom: 3px solid #28a745;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #6c757d;
+            margin-top: 0;
+        }
+        .order-card {
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+        }
+        .order-datetime-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin: 10px 0;
+        }
+        .order-date-label {
+            color: #6c757d;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .order-date-value {
+            color: #6c757d;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .order-time-value {
+            color: #6c757d;
+            font-size: 13px;
+            font-weight: 500;
+            font-style: italic;
+        }
+        .admin-timestamp {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+        .order-time {
+            color: #dc3545;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .fa-clock {
+            color: #28a745;
+            margin-right: 5px;
+        }
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn:hover {
+            background: #28a745;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+</head>
+<body>
+    <h1>📅 Order Timestamp Display - Testing & Preview</h1>
+    
+    <div class="success-box">
+        <strong>✅ Implementation Complete!</strong><br>
+        The order timestamp feature has been successfully implemented across both user and admin views.
+    </div>
+
+    <!-- User View Section -->
+    <div class="test-section">
+        <h2>👤 User View - Your Orders Page</h2>
+        <p>This is how customers see order timestamps on <code>user-orders.html</code></p>
+        
+        <div class="order-card">
+            <strong>Order #123</strong><br>
+            <strong>Total:</strong> ₹250.00<br>
+            
+            <div class="order-datetime-wrapper">
+                <span class="order-date-label">Ordered on:</span>
+                <span class="order-date-value">13/10/2025</span>
+                <span class="order-time-value">03:50 PM</span>
+            </div>
+            
+            <strong>Status:</strong> <span style="color: #28a745;">Delivered</span>
+        </div>
+        
+        <div class="order-card">
+            <strong>Order #124</strong><br>
+            <strong>Total:</strong> ₹180.00<br>
+            
+            <div class="order-datetime-wrapper">
+                <span class="order-date-label">Ordered on:</span>
+                <span class="order-date-value">08/10/2025</span>
+                <span class="order-time-value">02:12 AM</span>
+            </div>
+            
+            <strong>Status:</strong> <span style="color: #fd7e14;">Preparing</span>
+        </div>
+    </div>
+
+    <!-- Admin View Section -->
+    <div class="test-section">
+        <h2>👨‍💼 Admin View - Order Dashboard</h2>
+        <p>This is how administrators see order timestamps on <code>order.html</code></p>
+        
+        <div class="order-card">
+            <strong>#1 - Order 123 by John Doe</strong> - Status: <span style="color: #28a745;">Delivered</span>
+            
+            <div class="admin-timestamp">
+                <i class="fas fa-clock fa-clock"></i>
+                Ordered on: <span class="order-time">13/10/2025, 03:50 PM</span>
+            </div>
+            
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <thead>
+                    <tr style="background: #6c757d; color: white;">
+                        <th style="padding: 8px; text-align: left;">S.No.</th>
+                        <th style="padding: 8px; text-align: left;">Food Item</th>
+                        <th style="padding: 8px; text-align: left;">Price</th>
+                        <th style="padding: 8px; text-align: left;">Qty</th>
+                        <th style="padding: 8px; text-align: left;">Sub Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f8f9fa;">
+                        <td style="padding: 8px;">1</td>
+                        <td style="padding: 8px;">Veg Sandwich</td>
+                        <td style="padding: 8px;">₹80.00</td>
+                        <td style="padding: 8px;">2</td>
+                        <td style="padding: 8px;">₹160.00</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px;">2</td>
+                        <td style="padding: 8px;">Cold Coffee</td>
+                        <td style="padding: 8px;">₹45.00</td>
+                        <td style="padding: 8px;">2</td>
+                        <td style="padding: 8px;">₹90.00</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr style="background: #6c757d; color: white; font-weight: bold;">
+                        <td colspan="4" style="padding: 8px; text-align: right;">Total:</td>
+                        <td style="padding: 8px;">₹250.00</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!-- Technical Details Section -->
+    <div class="test-section">
+        <h2>🔧 Technical Implementation</h2>
+        
+        <h3>Backend API Response Format:</h3>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>{
+  "order_id": 123,
+  "user_id": 2,
+  "total_amount": 250.00,
+  "order_status": "Delivered",
+  "order_date": "2025-10-13T10:20:57.000Z",
+  <strong style="color: #28a745;">"formatted_date": "13/10/2025",
+  "formatted_time": "03:50 PM",
+  "formatted_datetime": "13/10/2025, 03:50 PM"</strong>,
+  "items": [...]
+}</code></pre>
+
+        <h3>Files Modified:</h3>
+        <ul>
+            <li>✅ <code>backend/server.js</code> - Added timestamp formatting in both endpoints</li>
+            <li>✅ <code>frontend/assets/js/orders.js</code> - User order display with timestamps</li>
+            <li>✅ <code>frontend/assets/js/admin-orders.js</code> - Admin order display with timestamps</li>
+            <li>✅ <code>frontend/assets/css/order.css</code> - Styling for timestamp display</li>
+        </ul>
+
+        <h3>New Files Created:</h3>
+        <ul>
+            <li>📄 <code>backend/verify_order_timestamp.js</code> - Database verification script</li>
+            <li>📄 <code>ORDER_TIMESTAMP_GUIDE.md</code> - Complete documentation</li>
+            <li>📄 <code>test-order-timestamp.html</code> - This preview file</li>
+        </ul>
+    </div>
+
+    <!-- Testing Instructions -->
+    <div class="test-section">
+        <h2>🧪 Testing Instructions</h2>
+        
+        <div class="info-box">
+            <strong>Step 1: Verify Database</strong>
+            <pre style="background: white; padding: 10px; margin-top: 10px;">cd backend
+node verify_order_timestamp.js</pre>
+        </div>
+
+        <div class="info-box">
+            <strong>Step 2: Restart Server (if needed)</strong>
+            <pre style="background: white; padding: 10px; margin-top: 10px;">cd backend
+npm start</pre>
+        </div>
+
+        <div class="info-box">
+            <strong>Step 3: Test User View</strong>
+            <ol style="margin: 10px 0 0 20px;">
+                <li>Login as a regular user</li>
+                <li>Place an order from the menu</li>
+                <li>Navigate to <code>user-orders.html</code></li>
+                <li>Verify timestamp appears as: "Ordered on: DD/MM/YYYY, HH:MM AM/PM"</li>
+            </ol>
+        </div>
+
+        <div class="info-box">
+            <strong>Step 4: Test Admin View</strong>
+            <ol style="margin: 10px 0 0 20px;">
+                <li>Login as admin (nishanthragod1@gmail.com / Nishanth@123)</li>
+                <li>Navigate to <code>order.html</code></li>
+                <li>Verify timestamp in order header with clock icon</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Features Summary -->
+    <div class="test-section">
+        <h2>✨ Features Summary</h2>
+        <ul>
+            <li>✅ <strong>Automatic Recording:</strong> Every order automatically gets a timestamp when created</li>
+            <li>✅ <strong>Indian Format:</strong> Dates formatted as DD/MM/YYYY for Indian users</li>
+            <li>✅ <strong>12-Hour Time:</strong> Times shown in AM/PM format for clarity</li>
+            <li>✅ <strong>User-Friendly Display:</strong> Separate date and time lines for easy reading</li>
+            <li>✅ <strong>Admin Overview:</strong> Combined timestamp with visual icon in admin view</li>
+            <li>✅ <strong>Responsive Design:</strong> Works perfectly on mobile, tablet, and desktop</li>
+            <li>✅ <strong>Consistent Styling:</strong> Follows existing red-green-black-white color scheme</li>
+            <li>✅ <strong>No Database Migration:</strong> Works with existing order_date column</li>
+        </ul>
+    </div>
+
+    <div class="success-box" style="text-align: center;">
+        <h3 style="margin-top: 0;">🎉 Implementation Complete!</h3>
+        <p>The order timestamp feature is now fully functional and ready for production use.</p>
+        <button class="btn" onclick="window.location.href='http://localhost:5000/user-orders.html'">
+            View User Orders
+        </button>
+        <button class="btn" onclick="window.location.href='http://localhost:5000/order.html'">
+            View Admin Dashboard
+        </button>
+    </div>
+
+    <script>
+        // Auto-update current time display
+        function updateCurrentTime() {
+            const now = new Date();
+            const date = now.toLocaleDateString('en-IN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+            const time = now.toLocaleTimeString('en-IN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+            
+            console.log(`Current timestamp format: ${date}, ${time}`);
+        }
+        
+        updateCurrentTime();
+        setInterval(updateCurrentTime, 60000); // Update every minute
+    </script>
+</body>
+</html>

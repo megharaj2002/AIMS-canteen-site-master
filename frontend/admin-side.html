@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AIMS Canteen | Sie</title>
+
+    <!-- Page Icon -->
+    <link rel="Micosoft icon" href="assets/images/AIMS LOGO.png" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+      crossorigin="anonymous"
+    />
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/utilities.css" />
+    <link rel="stylesheet" href="assets/css/mobile.css" />
+    <link rel="stylesheet" href="assets/css/animations.css" />
+
+    <!-- Sweet Alert Pop Modal -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <!-- NavBar -->
+    <header class="navbar">
+      <div class="container flex text-center jc-ai-center">
+        <!-- Left Navigation -->
+        <div class="site-title flex align-item-center">
+          <div>
+            <a href="index.html"
+              ><h1>
+                <span class="clr-red">AIMS</span>
+                <span class="clr-green">Canteen Admin</span>
+              </h1></a
+            >
+          </div>
+          <!-- Toggle Bars -->
+          <div class="toggle-bars mybar">
+            <div class="bars bar-1"></div>
+            <div class="bars bar-2"></div>
+            <div class="bars bar-3"></div>
+          </div>
+        </div>
+        <!-- Right Navigation -->
+        <nav class="site-nav flex left-nav align-item-center">
+          <ul class="flex">
+            <li><a href="order.html">Orders</a></li>
+            <li><a href="admin-side.html">Product Management</a></li>
+            <button class="btn" id="logout" style="padding: 10px 20px">
+              Log Out
+            </button>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Mobile Navbar -->
+    <header class="mob-navbar">
+      <nav class="nav container">
+        <ul class="mob-ul">
+          <li><a href="orders.html">Orders</a></li>
+          <li><a href="admin-side.html">Product Management</a></li>
+          <button class="btn" id="logout" style="padding: 10px 20px">
+            Log Out
+          </button>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Product Management -->
+    <section class="product-management">
+      <div class="container-min grid">
+        <div class="title md text-center">Product Management</div>
+        <hr />
+        <article class="choose-operation text-center">
+          <button class="btn p-1" id="add-product-menu">
+            Add a Product to Menu
+          </button>
+          <button class="btn p-1" id="remove-product-menu">
+            Remove a Product from Menu
+          </button>
+          <button class="btn p-1" id="manage-categories-menu">
+            Manage Categories
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <section class="add-product add-container">
+      <div class="container-min">
+        <div class="title md text-center">Add Product to Menu</div>
+        <hr />
+        
+        <!-- Enhanced Product Form -->
+        <div class="enhanced-product-form">
+          <div class="form-grid">
+            <!-- Left Column - Form Fields -->
+            <div class="form-fields">
+              <div class="form-group">
+                <label for="add-title">Product Name *</label>
+                <input id="add-title" type="text" placeholder="Enter product name" required />
+              </div>
+              
+              <div class="form-group">
+                <label for="add-description">Product Description</label>
+                <textarea id="add-description" placeholder="Describe your product (optional)" rows="3"></textarea>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="add-category">Category *</label>
+                  <div class="category-input-group">
+                    <select name="Categories" id="add-category" required>
+                      <option value="">Loading categories...</option>
+                    </select>
+                    <button type="button" class="btn-secondary" id="add-new-category-btn">
+                      <i class="fas fa-plus"></i> New
+                    </button>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="add-price">Price (₹) *</label>
+                  <input id="add-price" type="number" placeholder="0.00" min="0" step="0.01" required />
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="add-calories">Calories</label>
+                  <input id="add-calories" type="text" placeholder="e.g., 220-280 Kcal" />
+                </div>
+                
+                <div class="form-group">
+                  <label for="add-availability">Availability</label>
+                  <select id="add-availability">
+                    <option value="1">Available</option>
+                    <option value="0">Out of Stock</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right Column - Image Upload -->
+            <div class="image-upload-section">
+              <div class="image-preview-container">
+                <div class="image-preview" id="image-preview">
+                  <img id="preview-img" src="assets/images/menu_img1.jpg" alt="Product preview" />
+                  <div class="image-overlay">
+                    <i class="fas fa-camera"></i>
+                    <p>Click to upload image</p>
+                  </div>
+                </div>
+                <input type="file" id="image-upload" accept="image/*" style="display: none;" />
+                <div class="image-info">
+                  <p class="image-requirements">
+                    <i class="fas fa-info-circle"></i>
+                    Max size: 5MB<br>
+                    Formats: JPG, PNG, GIF
+                  </p>
+                  <button type="button" class="btn-outline" id="remove-image-btn" style="display: none;">
+                    <i class="fas fa-trash"></i> Remove Image
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" id="cancel-add-btn">Cancel</button>
+            <button type="button" class="btn-primary" id="add-product-btn">
+              <i class="fas fa-plus"></i> Add Product
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Management Modal -->
+    <div class="modal-overlay" id="category-modal">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3>Add New Category</h3>
+          <button class="modal-close" id="close-category-modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="new-category-name">Category Name</label>
+            <input type="text" id="new-category-name" placeholder="Enter category name" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" id="cancel-category-btn">Cancel</button>
+          <button class="btn-primary" id="save-category-btn">
+            <i class="fas fa-save"></i> Save Category
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manage Categories Modal -->
+    <div class="modal-overlay" id="manage-categories-modal">
+      <div class="modal-container large">
+        <div class="modal-header">
+          <h3>Manage Categories</h3>
+          <button class="modal-close" id="close-manage-categories-modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="categories-list" id="categories-list">
+            <!-- Categories will be loaded here -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-primary" id="add-category-from-manage">
+            <i class="fas fa-plus"></i> Add New Category
+          </button>
+          <button class="btn-cancel" id="close-manage-categories-btn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="add-product remove remove-container">
+      <div class="container-min grid">
+        <div class="title md text-center">Remove a Product from Menu</div>
+        <hr />
+        <!-- Add Menu Item -->
+        <article class="menu-item text-center">
+          <img src="assets/images/sandwich1.jpg" alt="Product image" />
+          <div class="item-info">
+            <figure>
+              <h2>
+                <select id="remove-select">
+                  <option value="" selected>Select a product to remove</option>
+                </select>
+              </h2>
+            </figure>
+            <div class="my-1 text-center">
+              <button class="btn" id="remove-product-btn">Remove From Menu</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- JS files -->
+    <script src="assets/js/functioning.js"></script>
+    <script src="assets/js/admin.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/features.js"></script>
+
+    <!-- 🔑 Logout Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const logoutBtns = document.querySelectorAll("#logout");
+        logoutBtns.forEach(btn => {
+          btn.addEventListener("click", () => {
+            // clear token/session
+            localStorage.removeItem("token");
+            sessionStorage.removeItem("token");
+
+            // clear cookies if any
+            document.cookie.split(";").forEach(cookie => {
+              document.cookie = cookie
+                .replace(/^ +/, "")
+                .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+
+            // show confirmation and redirect
+            Swal.fire({
+              icon: "success",
+              title: "Logged out",
+              text: "You have been successfully logged out!",
+              timer: 1500,
+              showConfirmButton: false
+            }).then(() => {
+              window.location.href = "index.html";
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
